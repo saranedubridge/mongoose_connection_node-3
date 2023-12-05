@@ -1,18 +1,18 @@
 // Simple web Server
-require('dotenv').config();
 const express= require('express')
 const app = express();
 const cors=require('cors')
 const mongoose=require('mongoose');
+const logger=require('./utils/logger');
+const config=require('./utils/config')
 
 //middleware
 app.use(cors());
 app.use(express.json());
 
 
-const url = process.env.ATLAS_URI;
 
-mongoose.connect(url)
+mongoose.connect(config.MONGODB_URI)
         .then(()=>{
             console.log('connected to Mongodb');
             // mongoose.connection.close();
@@ -134,9 +134,9 @@ Note.findByIdAndUpdate(id,noteToReplace)
     }
 });
 });
-const PORT =3001;
-app.listen(PORT,()=>{
-    console.log(`server running on port ${PORT}`);
+
+app.listen(config.PORT,()=>{
+    console.log(`server running on port ${config.PORT}`);
 
 });
 
