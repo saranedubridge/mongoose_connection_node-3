@@ -1,12 +1,13 @@
 // Simple web Server
-const express= require('express')
+const express= require('express');
 const app = express();
-const cors=require('cors')
+const cors=require('cors');
 const mongoose=require('mongoose');
 const logger=require('./utils/logger');
 const config=require('./utils/config');
-const notesRouter=require('./controllers/notes')
+const notesRouter=require('./controllers/notes');
 const middleware=require('./utils/middleware');
+const usersRouter =require('./controllers/users')
 
 mongoose.set('strictQuery',false);
 logger.info('connecting to',config.MONGODB_URI)
@@ -26,8 +27,9 @@ app.use(express.json());
 app.use(middleware.requestLogger);
 
 
-app.use('/api/notes',notesRouter);  
-app.use(middleware.unknownEndpoint);
+app.use('/api/notes',notesRouter);
+app.use('/api/users',usersRouter)  
+ app.use(middleware.unknownEndpoint);
 
 
 

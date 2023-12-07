@@ -4,7 +4,11 @@ const mongoose= require('mongoose')
 // define a schema
 const noteSchema = new mongoose. Schema ({
     content: String,
-    important: Boolean
+    important: Boolean,
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    }
     });
     
     
