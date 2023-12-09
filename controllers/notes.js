@@ -5,11 +5,10 @@ const config=require("../utils/config");
 const User=require('../models/user')
 
 // endpoint to get all the notes
-notesRouter.get('/', (request, response) => {
-    Note.find({}, {})
-        .then (notes => {
-             response.status (200).json (notes);
-        }); 
+notesRouter.get('/', async(request, response) => {
+    const notes = await Note.find({},{}).populate('user',{username:1,name:1})
+      
+    response.json(notes);
 }); 
   
 // authoraization

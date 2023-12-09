@@ -23,8 +23,14 @@ const user = new User({
 // store it in the database
 const savedUser=await user.save();
 
-response.status(201).json(savedUser)
+response.status(201).json(savedUser);
 
 });
+
+
+usersRouter.get('/',async(rerquest,response)=>{
+    const users=await User.find({},{}).populate('notes',{content:1,important:1})
+    response.json(users)
+})
 
 module.exports = usersRouter;
